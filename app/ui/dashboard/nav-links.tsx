@@ -8,9 +8,9 @@ import {
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import clsx from 'clsx';
+import { handleSignOut } from '@/app/lib/actions-auth'; // IMPORTAR LA ACCIÓN
 
 // Map of links to display in the side navigation.
-// Depending on the size of the application, this would be stored in a database.
 const links = [
   { name: 'Home', href: '/dashboard', icon: HomeIcon },
   {
@@ -44,6 +44,15 @@ export default function NavLinks() {
           </Link>
         );
       })}
+      {/* USAR LA ACCIÓN IMPORTADA */}
+      <form action={handleSignOut}>
+        <button className="flex h-[48px] w-full grow items-center justify-center gap-2 rounded-md bg-gray-50 p-3 text-sm font-medium hover:bg-sky-100 hover:text-blue-600 md:flex-none md:justify-start md:p-2 md:px-3">
+          <div className="w-6">
+            {/* Puedes agregar un icono de sign out aquí */}
+          </div>
+          <p className="hidden md:block">Sign Out</p>
+        </button>
+      </form>
     </>
   );
 }

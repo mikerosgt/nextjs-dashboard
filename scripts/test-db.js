@@ -1,26 +1,21 @@
-require('dotenv').config({ path: '.env.local' }); // AGREGAR ESTA LÍNEA
+require('dotenv').config({ path: '.env.local' });
 const { db } = require('@vercel/postgres');
+
+console.log('POSTGRES_URL:', process.env.POSTGRES_URL);
 
 async function testConnection() {
   try {
-    console.log('🔗 Probando conexión a la base de datos...');
-    console.log('POSTGRES_URL:', process.env.POSTGRES_URL ? '✅ Configurada' : '❌ No configurada');
-    
+    console.log('🔗 Testing connection...');
     const client = await db.connect();
-    console.log('✅ Conexión exitosa a Vercel Postgres');
+    console.log('✅ Connected successfully!');
     
-    // Probar si las tablas existen
-    const tables = await client.sql`
-      SELECT table_name 
-      FROM information_schema.tables 
-      WHERE table_schema = 'public'
-    `;
-    
-    console.log('📊 Tablas existentes:', tables.rows.map(row => row.table_name));
+    // Test simple query
+    const result = await client.sql`SELECT 1 as test`;
+    console.log('✅ Query test passed:', result.rows[0]);
     
     await client.end();
   } catch (error) {
-    console.error('❌ Error de conexión:', error.message);
+    console.error('❌ Connection failed:', error.message);
   }
 }
 

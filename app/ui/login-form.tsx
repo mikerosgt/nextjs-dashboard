@@ -9,7 +9,8 @@ import {
 import { ArrowRightIcon } from '@heroicons/react/20/solid';
 import { Button } from '@/app/ui/button';
 import { useActionState } from 'react';
-import { authenticate } from '@/app/lib/actions';
+import { useFormStatus } from 'react-dom'; // AGREGAR ESTE IMPORT
+import { authenticate } from '@/app/lib/actions-auth';
 
 export default function LoginForm() {
   const [errorMessage, dispatch, isPending] = useActionState(authenticate, undefined);
@@ -84,11 +85,11 @@ export default function LoginForm() {
 }
 
 function LoginButton() {
-  const { pending } = useFormStatus();
+  const { pending } = useFormStatus(); // AHORA ESTÁ DEFINIDO
 
   return (
     <Button className="mt-4 w-full" aria-disabled={pending}>
-      Log in <ArrowRightIcon className="ml-auto h-5 w-5 text-gray-50" />
+      {pending ? 'Processing...' : 'Log in'} <ArrowRightIcon className="ml-auto h-5 w-5 text-gray-50" />
     </Button>
   );
 }

@@ -130,7 +130,6 @@ export async function fetchRevenue(): Promise<Revenue[]> {
     console.log('Fetching revenue data...');
     await new Promise((resolve) => setTimeout(resolve, 3000));
     
-    // Intenta con base de datos real
     const data = await sql<Revenue>`SELECT * FROM revenue`;
     console.log('✅ Revenue data from database');
     return data.rows;
@@ -233,8 +232,8 @@ export async function fetchFilteredInvoices(
     console.log('✅ Filtered invoices from database');
     return invoices.rows;
   } catch (error) {
+    console.error('Database Error: Failed to fetch invoices.', error);
     console.log('📋 Using mock filtered invoices');
-    // Filtrar datos mock basado en la query
     const filtered = mockInvoices.filter(invoice => 
       invoice.name.toLowerCase().includes(query.toLowerCase()) ||
       invoice.email.toLowerCase().includes(query.toLowerCase()) ||
@@ -243,12 +242,12 @@ export async function fetchFilteredInvoices(
       invoice.status.toLowerCase().includes(query.toLowerCase())
     );
     
-    // Paginación manual
     const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
     return filtered.slice(startIndex, startIndex + ITEMS_PER_PAGE);
   }
 }
 
+// FUNCIÓN FALTANTE - AGREGAR ESTA
 export async function fetchInvoicesPages(query: string): Promise<number> {
   try {
     const count = await sql`SELECT COUNT(*)
@@ -266,7 +265,9 @@ export async function fetchInvoicesPages(query: string): Promise<number> {
     console.log('✅ Invoice pages from database');
     return totalPages;
   } catch (error) {
+    console.error('Database Error: Failed to fetch invoice pages.', error);
     console.log('📋 Using mock invoice pages');
+    
     const filtered = mockInvoices.filter(invoice => 
       invoice.name.toLowerCase().includes(query.toLowerCase()) ||
       invoice.email.toLowerCase().includes(query.toLowerCase()) ||
@@ -274,6 +275,7 @@ export async function fetchInvoicesPages(query: string): Promise<number> {
       formatDateToLocal(invoice.date).toLowerCase().includes(query.toLowerCase()) ||
       invoice.status.toLowerCase().includes(query.toLowerCase())
     );
+    
     return Math.ceil(filtered.length / ITEMS_PER_PAGE);
   }
 }
@@ -298,16 +300,7 @@ export async function fetchInvoiceById(id: string): Promise<InvoiceForm | undefi
     console.log('✅ Invoice by ID from database');
     return invoice[0];
   } catch (error) {
-    console.log('📋 Using mock invoice by ID');
-    const invoice = mockInvoices.find(inv => inv.id === id);
-    if (invoice) {
-      return {
-        id: invoice.id,
-        customer_id: invoice.customer_id,
-        amount: invoice.amount / 100,
-        status: invoice.status as 'pending' | 'paid',
-      };
-    }
+    console.error('Database Error: Failed to fetch invoice.', error);
     return undefined;
   }
 }
@@ -361,7 +354,6 @@ export async function fetchFilteredCustomers(query: string): Promise<CustomersTa
     return customers;
   } catch (err) {
     console.log('📋 Using mock filtered customers');
-    // Simular datos de customers filtrados
     const filtered = mockCustomers.filter(customer => 
       customer.name.toLowerCase().includes(query.toLowerCase())
     );

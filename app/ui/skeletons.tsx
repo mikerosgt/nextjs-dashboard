@@ -139,6 +139,32 @@ export function TableRowSkeleton() {
   );
 }
 
+export function EditInvoiceSkeleton() {
+  return (
+    <div className="relative w-full overflow-hidden">
+      <div className="mb-6 flex">
+        <div className="h-8 w-32 rounded-md bg-gray-200"></div>
+        <div className="mx-3 h-8 w-4 rounded-md bg-gray-200"></div>
+        <div className="h-8 w-40 rounded-md bg-gray-200"></div>
+      </div>
+      <div className="rounded-md bg-gray-50 p-4">
+        <div className="mb-4">
+          <div className="h-5 w-20 rounded-md bg-gray-200 mb-2"></div>
+          <div className="h-10 w-full rounded-md bg-gray-200"></div>
+        </div>
+        <div className="mb-4">
+          <div className="h-5 w-24 rounded-md bg-gray-200 mb-2"></div>
+          <div className="h-10 w-full rounded-md bg-gray-200"></div>
+        </div>
+        <div className="mb-4">
+          <div className="h-5 w-28 rounded-md bg-gray-200 mb-2"></div>
+          <div className="h-20 w-full rounded-md bg-gray-200"></div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export function InvoicesMobileSkeleton() {
   return (
     <div className="mb-2 w-full rounded-md bg-white p-4">

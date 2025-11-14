@@ -2,6 +2,7 @@ import { Button } from '@/app/ui/button';
 import Link from 'next/link';
 import { ArrowLeftIcon } from '@heroicons/react/24/outline';
 import CreateOrderForm from '@/app/ui/orders/create-form';
+import { lusitana } from '@/app/ui/fonts';
 
 export default function CreateOrderPage() {
   return (
@@ -12,7 +13,7 @@ export default function CreateOrderPage() {
             <ArrowLeftIcon className="h-4 w-4" />
           </Link>
         </Button>
-        <h1 className="text-2xl">Create Order</h1>
+        <h1 className={`${lusitana.className} text-2xl`}>Create Order</h1>
       </div>
 
       <div className="max-w-2xl">

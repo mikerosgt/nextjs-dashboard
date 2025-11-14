@@ -14,7 +14,7 @@ export default async function SupplierInvoicesPage() {
         <Button asChild>
           <Link href="/dashboard/supplier-invoices/create">
             <PlusIcon className="h-5 w-5 mr-2" />
-            Create Supplier Invoice
+            Create Supplier Invoice  {/* ← YA ESTÁ CORRECTO */}
           </Link>
         </Button>
       </div>

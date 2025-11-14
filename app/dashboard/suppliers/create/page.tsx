@@ -2,6 +2,7 @@ import { Button } from '@/app/ui/button';
 import Link from 'next/link';
 import { ArrowLeftIcon } from '@heroicons/react/24/outline';
 import CreateSupplierForm from '@/app/ui/suppliers/create-form';
+import { lusitana } from '@/app/ui/fonts';
 
 export default function CreateSupplierPage() {
   return (
@@ -12,7 +13,7 @@ export default function CreateSupplierPage() {
             <ArrowLeftIcon className="h-4 w-4" />
           </Link>
         </Button>
-        <h1 className="text-2xl">Create Supplier</h1>
+        <h1 className={`${lusitana.className} text-2xl`}>Create Supplier</h1>
       </div>
 
       <div className="max-w-md">

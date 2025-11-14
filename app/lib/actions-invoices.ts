@@ -1,6 +1,6 @@
 'use server';
 
-import { createInvoice } from './api-invoices';
+import { createSupplierInvoice } from './api-invoices'; // ← CORREGIDO
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 
@@ -12,7 +12,7 @@ export type State = {
   message?: string | null;
 };
 
-export async function createInvoiceAction(prevState: State, formData: FormData): Promise<State> {
+export async function createSupplierInvoiceAction(prevState: State, formData: FormData): Promise<State> { // ← CORREGIDO
   const proveedorId = formData.get('proveedorId');
   const pedidosJson = formData.get('pedidos');
   const fechaVencimiento = formData.get('fechaVencimiento') as string;
@@ -36,14 +36,14 @@ export async function createInvoiceAction(prevState: State, formData: FormData):
   try {
     const pedidos = JSON.parse(pedidosJson as string);
     
-    await createInvoice({
+    await createSupplierInvoice({ // ← CORREGIDO
       proveedorId: Number(proveedorId),
       pedidos: pedidos,
       fechaVencimiento: fechaVencimiento || undefined,
     });
 
-    revalidatePath('/dashboard/invoices');
-    redirect('/dashboard/invoices');
+    revalidatePath('/dashboard/supplier-invoices');
+    redirect('/dashboard/supplier-invoices');
   } catch (error) {
     console.error('Error creating invoice:', error);
     return {

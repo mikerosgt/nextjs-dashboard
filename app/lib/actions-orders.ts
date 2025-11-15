@@ -2,7 +2,6 @@
 
 import { createOrder } from './api-orders';
 import { revalidatePath } from 'next/cache';
-import { redirect } from 'next/navigation';
 
 export type State = {
   errors?: {
@@ -41,7 +40,10 @@ export async function createOrderAction(prevState: State, formData: FormData): P
     });
 
     revalidatePath('/dashboard/orders');
-    redirect('/dashboard/orders');
+    
+    return { 
+      message: 'Order created successfully! Redirecting...' 
+    };
   } catch (error) {
     console.error('Error creating order:', error);
     return {

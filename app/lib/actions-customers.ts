@@ -40,9 +40,17 @@ export async function createCustomerAction(prevState: State, formData: FormData)
       correo: validatedFields.correo.trim(),
     });
 
+    // SOLUCIÓN: Solo revalidatePath y retornar success
     revalidatePath('/dashboard/customers');
-    redirect('/dashboard/customers');
+    
+    // En lugar de redirect, retornamos success
+    return { 
+      message: 'Customer created successfully! Redirecting...' 
+    };
+    
+    // NOTA: El redireccionamiento lo manejaremos en el cliente
   } catch (error) {
+    console.error('Error creating customer:', error);
     return {
       message: 'Database Error: Failed to create customer.',
     };

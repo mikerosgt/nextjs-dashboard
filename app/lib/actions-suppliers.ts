@@ -2,7 +2,6 @@
 
 import { createSupplier } from './api-suppliers';
 import { revalidatePath } from 'next/cache';
-import { redirect } from 'next/navigation';
 
 export type State = {
   errors?: {
@@ -47,8 +46,12 @@ export async function createSupplierAction(prevState: State, formData: FormData)
     });
 
     revalidatePath('/dashboard/suppliers');
-    redirect('/dashboard/suppliers');
+    
+    return { 
+      message: 'Supplier created successfully! Redirecting...' 
+    };
   } catch (error) {
+    console.error('Error creating supplier:', error);
     return {
       message: 'Database Error: Failed to create supplier.',
     };
